@@ -1,5 +1,8 @@
 <?php
 namespace Stathat;
+
+use Illuminate\Support\Facades\Config;
+
 /**
 * 
 */
@@ -14,8 +17,8 @@ class Client
 
 	public function __construct()
 	{
-		$this->email 	= config('stathat.email');
-		$this->userKey 	= config('stathat.user_key');
+		$this->email 	= Config::get('stathat.email');
+		$this->userKey 	= Config::get('stathat.user_key');
 	}
 
 	public function count($stat_key, $count, $user_key = '')
