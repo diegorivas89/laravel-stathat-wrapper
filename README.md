@@ -4,9 +4,9 @@
 - `php >= 5.4`
 - `illuminate/support: 4.2.*`
 
-## Laravel 4.2 and Below
+## Installation
 
-Begin by installing this package through Composer. Edit your project's `composer.json` file to require `way/generators`.
+Begin by installing this package through Composer. Edit your project's `composer.json` file to require `diegorivas89/stathat-laravel`.
 
     "require": {
 		"diegorivas89/stathat-laravel": "dev-master"
