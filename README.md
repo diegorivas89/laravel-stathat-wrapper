@@ -1,0 +1,1 @@
+# Stathat wrapper for Laravel
