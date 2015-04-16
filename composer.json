@@ -1,6 +1,6 @@
 {
     "name": "diegorivas89/laravel-stathat",
-    "description": "",
+    "description": "Laravel 4.2 integration for the Stathat API",
     "authors": [
         {
             "name": "Diego Rivas",
