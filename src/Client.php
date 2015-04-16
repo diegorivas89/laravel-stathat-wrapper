@@ -5,49 +5,53 @@ namespace Stathat;
 */
 class Client
 {
-	function __construct()
+	const EZ_API_URL 	= 'http://api.stathat.com/ez';
+	const COUNT_API_URL = 'http://api.stathat.com/c';
+	const VALUE_API_URL = 'http://api.stathat.com/v';
+
+	public function __construct()
 	{
 
 	}
 
 	public function count($stat_key, $user_key, $count)
 	{
-		return $this->doAsyncPostRequest("http://api.stathat.com/c", array('key' => $stat_key, 'ukey' => $user_key, 'count' => $count));
+		return $this->doAsyncPostRequest(self::COUNT_API_URL, array('key' => $stat_key, 'ukey' => $user_key, 'count' => $count));
 	}
 
 	public function value($stat_key, $user_key, $value)
 	{
-		$this->doAsyncPostRequest("http://api.stathat.com/v", array('key' => $stat_key, 'ukey' => $user_key, 'value' => $value));
+		$this->doAsyncPostRequest(self::VALUE_API_URL, array('key' => $stat_key, 'ukey' => $user_key, 'value' => $value));
 	}
 
 	public function ezCount($email, $stat_name, $count)
 	{
-		$this->doAsyncPostRequest("http://api.stathat.com/ez", array('email' => $email, 'stat' => $stat_name, 'count' => $count));
+		$this->doAsyncPostRequest(self::EZ_API_URL, array('email' => $email, 'stat' => $stat_name, 'count' => $count));
 	}
 
 	public function ezValue($email, $stat_name, $value)
 	{
-		$this->doAsyncPostRequest("http://api.stathat.com/ez", array('email' => $email, 'stat' => $stat_name, 'value' => $value));
+		$this->doAsyncPostRequest(self::EZ_API_URL, array('email' => $email, 'stat' => $stat_name, 'value' => $value));
 	}
 
 	public function countSync($stat_key, $user_key, $count)
 	{
-		return $this->doPostRequest("http://api.stathat.com/c", "key=$stat_key&ukey=$user_key&count=$count");
+		return $this->doPostRequest(self::COUNT_API_URL, "key=$stat_key&ukey=$user_key&count=$count");
 	}
 
 	public function valueSync($stat_key, $user_key, $value)
 	{
-		return $this->doPostRequest("http://api.stathat.com/v", "key=$stat_key&ukey=$user_key&value=$value");
+		return $this->doPostRequest(self::VALUE_API_URL, "key=$stat_key&ukey=$user_key&value=$value");
 	}
 
 	public function ezCountSync($email, $stat_name, $count)
 	{
-		return $this->doPostRequest("http://api.stathat.com/ez", "email=$email&stat=$stat_name&count=$count");
+		return $this->doPostRequest(self::EZ_API_URL, "email=$email&stat=$stat_name&count=$count");
 	}
 
 	public function ezValueSync($email, $stat_name, $value)
 	{
-		return $this->doPostRequest("http://api.stathat.com/ez", "email=$email&stat=$stat_name&value=$value");
+		return $this->doPostRequest(self::EZ_API_URL, "email=$email&stat=$stat_name&value=$value");
 	}
 
 	protected function doPostRequest($url, $data, $optional_headers = null)
