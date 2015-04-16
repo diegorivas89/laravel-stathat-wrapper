@@ -15,6 +15,5 @@
         "psr-0": {
             "Stathat\\": "src/"
         }
-    },
-    "minimum-stability": "stable"
+    }
 }
