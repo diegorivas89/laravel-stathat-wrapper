@@ -20,10 +20,6 @@ class StathatServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('diegorivas89/laravel-stathat');
-
-		$this->publishes([
-			__DIR__.'/config/stathat.php' => config_path('stathat.php'),
-		]);
 	}
 
 	/**
