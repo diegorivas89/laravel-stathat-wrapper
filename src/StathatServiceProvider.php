@@ -3,7 +3,7 @@ namespace Stathat;
 
 use Illuminate\Support\ServiceProvider;
 
-class LaravelStathatServiceProvider extends ServiceProvider {
+class StathatServiceProvider extends ServiceProvider {
 
 	/**
 	 * Indicates if loading of the provider is deferred.
