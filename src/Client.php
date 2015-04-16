@@ -18,14 +18,28 @@ class Client
 		$this->userKey 	= config('stathat.user_key');
 	}
 
-	public function count($stat_key, $user_key, $count)
+	public function count($stat_key, $count, $user_key = '')
 	{
-		return $this->doAsyncPostRequest(self::COUNT_API_URL, array('key' => $stat_key, 'ukey' => $user_key, 'count' => $count));
+		return $this->doAsyncPostRequest(
+			self::COUNT_API_URL,
+			array(
+				'key' => $stat_key,
+				'ukey' => $user_key ? $user_key : $this->userKey,
+				'count' => $count
+			)
+		);
 	}
 
-	public function value($stat_key, $user_key, $value)
+	public function value($stat_key, $value, $user_key = '')
 	{
-		$this->doAsyncPostRequest(self::VALUE_API_URL, array('key' => $stat_key, 'ukey' => $user_key, 'value' => $value));
+		$this->doAsyncPostRequest(
+			self::VALUE_API_URL,
+			array(
+				'key' => $stat_key,
+				'ukey' => $user_key ? $user_key : $this->userKey,
+				'value' => $value
+			)
+		);
 	}
 
 	public function ezCount($stat_name, $count, $email = '')
@@ -52,14 +66,24 @@ class Client
 		);
 	}
 
-	public function countSync($stat_key, $user_key, $count)
+	public function countSync($stat_key, $count, $user_key = '')
 	{
-		return $this->doPostRequest(self::COUNT_API_URL, "key=$stat_key&ukey=$user_key&count=$count");
+		$user_key = $user_key ? $user_key : $this->userKey;
+
+		return $this->doPostRequest(
+			self::COUNT_API_URL,
+			"key=$stat_key&ukey=$user_key&count=$count"
+		);
 	}
 
-	public function valueSync($stat_key, $user_key, $value)
+	public function valueSync($stat_key, $value, $user_key = '')
 	{
-		return $this->doPostRequest(self::VALUE_API_URL, "key=$stat_key&ukey=$user_key&value=$value");
+		$user_key = $user_key ? $user_key : $this->userKey;
+
+		return $this->doPostRequest(
+			self::VALUE_API_URL,
+			"key=$stat_key&ukey=$user_key&value=$value"
+		);
 	}
 
 	public function ezCountSync($stat_name, $count, $email = '')
