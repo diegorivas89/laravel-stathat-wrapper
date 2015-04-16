@@ -10,11 +10,6 @@ class Client
 
 	}
 
-	public function foo()
-	{
-		echo "bar";
-	}
-
 	public function count($stat_key, $user_key, $count)
 	{
 		return $this->doAsyncPostRequest("http://api.stathat.com/c", array('key' => $stat_key, 'ukey' => $user_key, 'count' => $count));
