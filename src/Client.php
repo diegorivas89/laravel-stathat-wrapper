@@ -9,9 +9,13 @@ class Client
 	const COUNT_API_URL = 'http://api.stathat.com/c';
 	const VALUE_API_URL = 'http://api.stathat.com/v';
 
+	protected $email;
+	protected $userKey;
+
 	public function __construct()
 	{
-
+		$this->email 	= config('stathat.email');
+		$this->userKey 	= config('stathat.user_key');
 	}
 
 	public function count($stat_key, $user_key, $count)
@@ -24,14 +28,28 @@ class Client
 		$this->doAsyncPostRequest(self::VALUE_API_URL, array('key' => $stat_key, 'ukey' => $user_key, 'value' => $value));
 	}
 
-	public function ezCount($email, $stat_name, $count)
+	public function ezCount($stat_name, $count, $email = '')
 	{
-		$this->doAsyncPostRequest(self::EZ_API_URL, array('email' => $email, 'stat' => $stat_name, 'count' => $count));
+		$this->doAsyncPostRequest(
+			self::EZ_API_URL,
+			array(
+				'email' => $email ? $email : $this->email,
+				'stat' 	=> $stat_name,
+				'count' => $count
+			)
+		);
 	}
 
-	public function ezValue($email, $stat_name, $value)
+	public function ezValue($stat_name, $value, $email = '')
 	{
-		$this->doAsyncPostRequest(self::EZ_API_URL, array('email' => $email, 'stat' => $stat_name, 'value' => $value));
+		$this->doAsyncPostRequest(
+			self::EZ_API_URL,
+			array(
+				'email' => $email ? $email : $this->email,
+				'stat' 	=> $stat_name,
+				'value' => $value
+			)
+		);
 	}
 
 	public function countSync($stat_key, $user_key, $count)
@@ -44,14 +62,24 @@ class Client
 		return $this->doPostRequest(self::VALUE_API_URL, "key=$stat_key&ukey=$user_key&value=$value");
 	}
 
-	public function ezCountSync($email, $stat_name, $count)
+	public function ezCountSync($stat_name, $count, $email = '')
 	{
-		return $this->doPostRequest(self::EZ_API_URL, "email=$email&stat=$stat_name&count=$count");
+		$email = $email ? $email : $this->email;
+
+		return $this->doPostRequest(
+			self::EZ_API_URL,
+			"email=$email&stat=$stat_name&count=$count"
+		);
 	}
 
-	public function ezValueSync($email, $stat_name, $value)
+	public function ezValueSync($stat_name, $value, $email = '')
 	{
-		return $this->doPostRequest(self::EZ_API_URL, "email=$email&stat=$stat_name&value=$value");
+		$email = $email ? $email : $this->email;
+
+		return $this->doPostRequest(
+			self::EZ_API_URL,
+			"email=$email&stat=$stat_name&value=$value"
+		);
 	}
 
 	protected function doPostRequest($url, $data, $optional_headers = null)
