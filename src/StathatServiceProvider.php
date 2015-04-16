@@ -19,7 +19,7 @@ class StathatServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('diegorivas89/laravel-stathat');
+		$this->package('diegorivas89/laravel-stathat', 'stathat', dirname(__FILE__));
 	}
 
 	/**

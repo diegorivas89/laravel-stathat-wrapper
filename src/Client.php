@@ -12,13 +12,8 @@ class Client
 	const COUNT_API_URL = 'http://api.stathat.com/c';
 	const VALUE_API_URL = 'http://api.stathat.com/v';
 
-	protected $email;
-	protected $userKey;
-
 	public function __construct()
 	{
-		$this->email 	= Config::get('stathat.email');
-		$this->userKey 	= Config::get('stathat.user_key');
 	}
 
 	public function count($stat_key, $count, $user_key = '')
@@ -26,8 +21,8 @@ class Client
 		return $this->doAsyncPostRequest(
 			self::COUNT_API_URL,
 			array(
-				'key' => $stat_key,
-				'ukey' => $user_key ? $user_key : $this->userKey,
+				'key' 	=> $stat_key,
+				'ukey' 	=> $this->getUserKey($user_key),
 				'count' => $count
 			)
 		);
@@ -39,7 +34,7 @@ class Client
 			self::VALUE_API_URL,
 			array(
 				'key' => $stat_key,
-				'ukey' => $user_key ? $user_key : $this->userKey,
+				'ukey' => $this->getUserKey($user_key),
 				'value' => $value
 			)
 		);
@@ -50,7 +45,7 @@ class Client
 		$this->doAsyncPostRequest(
 			self::EZ_API_URL,
 			array(
-				'email' => $email ? $email : $this->email,
+				'email' => $this->getEmail($email),
 				'stat' 	=> $stat_name,
 				'count' => $count
 			)
@@ -62,7 +57,7 @@ class Client
 		$this->doAsyncPostRequest(
 			self::EZ_API_URL,
 			array(
-				'email' => $email ? $email : $this->email,
+				'email' => $this->getEmail($email),
 				'stat' 	=> $stat_name,
 				'value' => $value
 			)
@@ -71,7 +66,7 @@ class Client
 
 	public function countSync($stat_key, $count, $user_key = '')
 	{
-		$user_key = $user_key ? $user_key : $this->userKey;
+		$user_key = $this->getUserKey($user_key);
 
 		return $this->doPostRequest(
 			self::COUNT_API_URL,
@@ -81,7 +76,7 @@ class Client
 
 	public function valueSync($stat_key, $value, $user_key = '')
 	{
-		$user_key = $user_key ? $user_key : $this->userKey;
+		$user_key = $this->getUserKey($user_key);
 
 		return $this->doPostRequest(
 			self::VALUE_API_URL,
@@ -91,7 +86,7 @@ class Client
 
 	public function ezCountSync($stat_name, $count, $email = '')
 	{
-		$email = $email ? $email : $this->email;
+		$email = $this->getEmail($email);
 
 		return $this->doPostRequest(
 			self::EZ_API_URL,
@@ -101,7 +96,7 @@ class Client
 
 	public function ezValueSync($stat_name, $value, $email = '')
 	{
-		$email = $email ? $email : $this->email;
+		$email = $this->getEmail($email);
 
 		return $this->doPostRequest(
 			self::EZ_API_URL,
@@ -153,6 +148,20 @@ class Client
 
 		fwrite($fp, $out);
 		fclose($fp);
+	}
+
+	protected function getEmail($default = null)
+	{
+		if ($default) return $default;
+
+		return Config::get('stathat::stathat.email');
+	}
+
+	protected function getUserKey($default = null)
+	{
+		if ($default) return $default;
+
+		return Config::get('stathat::stathat.user_key');
 	}
 }
 
