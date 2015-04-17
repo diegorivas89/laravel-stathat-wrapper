@@ -1,7 +1,7 @@
 {
     "name": "diegorivas89/laravel-stathat",
     "description": "Laravel 4.2 integration for the Stathat API",
-    "keywords": ["stats", "stathat", "api bindings"],
+    "keywords": ["stats", "stathat", "api bindings", "laravel"],
     "homepage": "https://github.com/diegorivas89/laravel-stathat-wrapper",
     "license": "MIT",
     "authors": [
