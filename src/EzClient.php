@@ -54,5 +54,6 @@ class EzClient extends Client
 			"email=$email&stat=$stat_name&value=$value"
 		);
 	}
+}
 
 ?>
