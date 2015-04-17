@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Facade;
 /**
 * 	
 */
-class Stathat extends Facade
+class StathatClassic extends Facade
 {
 	/**
 	 * Get the registered name of the component.
@@ -13,7 +13,7 @@ class Stathat extends Facade
 	 * @return string
 	 */
 	protected static function getFacadeAccessor() {
-		return 'stathat';
+		return 'stathat-classic';
 	}
 }
 

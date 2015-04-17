@@ -1,9 +1,9 @@
 <?php
-namespace Stathat;
+namespace Stathat\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class StathatServiceProvider extends ServiceProvider {
+class StathatClassicServiceProvider extends ServiceProvider {
 
 	/**
 	 * Indicates if loading of the provider is deferred.
@@ -29,7 +29,7 @@ class StathatServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app['stathat'] = new \Stathat\Client();
+		$this->app['stathat-classic'] = new \Stathat\ClassicClient();
 	}
 
 	/**
