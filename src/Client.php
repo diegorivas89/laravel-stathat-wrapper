@@ -12,8 +12,13 @@ class Client
 	const COUNT_API_URL = 'http://api.stathat.com/c';
 	const VALUE_API_URL = 'http://api.stathat.com/v';
 
+	protected $email;
+	protected $userKey;
+
 	public function __construct()
 	{
+		$this->email = null;
+		$this->userKey = null;
 	}
 
 	protected function doPostRequest($url, $data, $optional_headers = null)
@@ -64,16 +69,12 @@ class Client
 
 	protected function getEmail($default = null)
 	{
-		if ($default) return $default;
-
-		return Config::get('stathat::stathat.email');
+		return ($default) ? $default : $this->email;
 	}
 
 	protected function getUserKey($default = null)
 	{
-		if ($default) return $default;
-
-		return Config::get('stathat::stathat.user_key');
+		return ($default) ? $default : $this->userKey;
 	}
 }
 

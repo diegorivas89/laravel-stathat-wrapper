@@ -6,9 +6,10 @@ namespace Stathat;
 class ClassicClient extends Client
 {
 
-	public function __construct()
+	public function __construct($userKey)
 	{
-		# code...
+		parent::__construct();
+		$this->userKey = $userKey;
 	}
 
 	public function count($stat_key, $count, $user_key = '')

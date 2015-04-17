@@ -7,8 +7,10 @@ namespace Stathat;
 class EzClient extends Client
 {
 	
-	public function __construct()
+	public function __construct($email)
 	{
+		parent::__construct();
+		$this->email = $email;
 	}
 
 	public function count($stat_name, $count, $email = '')
