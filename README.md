@@ -1,5 +1,7 @@
 # Stathat wrapper for Laravel 4
 
+[![Build Status](https://travis-ci.org/diegorivas89/laravel-stathat-wrapper.svg?branch=master)](https://travis-ci.org/diegorivas89/laravel-stathat-wrapper)
+
 Laravel 4 integration for the Stathat API
 
 ### Requeriments
