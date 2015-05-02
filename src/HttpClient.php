@@ -24,7 +24,7 @@ class HttpClient
 	 * @param  array 	$optional_headers
 	 * @return string
 	 */
-	protected function doPostRequest($url, $data, $optional_headers = null)
+	public function doPostRequest($url, $data, $optional_headers = null)
 	{
 		$params = array('http' => array(
 			'method' => 'POST',
@@ -52,7 +52,7 @@ class HttpClient
 	 * @param  array 	$params
 	 * @return void
 	 */
-	protected function doAsyncPostRequest($url, $params)
+	public function doAsyncPostRequest($url, $params)
 	{
 		foreach ($params as $key => &$val) {
 		if (is_array($val)) $val = implode(',', $val);
