@@ -17,6 +17,16 @@ class ClassicClientTest extends PHPUnit_Framework_TestCase
     	);
     }
 
+    public function testDefaultCountDefaultAccount()
+    {
+        $this->client->count('test_count');
+
+        $this->assertEquals(1, count($this->http->doAsyncPostRequest));
+        $this->assertEquals('test_count', $this->http->doAsyncPostRequest[0]['data']['key']);
+        $this->assertEquals(1, $this->http->doAsyncPostRequest[0]['data']['count']);
+        $this->assertEquals('stathat@test.com', $this->http->doAsyncPostRequest[0]['data']['ukey']);
+    }
+
     public function testCountDefaultAccount()
     {
     	$this->client->count('test_count', 1);
