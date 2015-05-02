@@ -26,7 +26,7 @@ class ClassicClient implements StathatClientInterface
 	 * @param  string 	$accountId
 	 * @return void
 	 */
-	public function count($stat_name, $count, $accountId = '')
+	public function count($stat_name, $count = 1, $accountId = '')
 	{
 		return $this->httpClient->doAsyncPostRequest(
 			self::COUNT_API_URL,
@@ -66,7 +66,7 @@ class ClassicClient implements StathatClientInterface
 	 * @param  string 	$accountId
 	 * @return void
 	 */
-	public function countSync($stat_name, $count, $accountId = '')
+	public function countSync($stat_name, $count = 1, $accountId = '')
 	{
 		$accountId = $this->getUserKey($accountId);
 

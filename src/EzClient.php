@@ -31,7 +31,7 @@ class EzClient implements StathatClientInterface
 	 * @param  string 	$accountId
 	 * @return void
 	 */
-	public function count($stat_name, $count, $accountId = '')
+	public function count($stat_name, $count = 1, $accountId = '')
 	{
 		$this->httpClient->doAsyncPostRequest(
 			self::EZ_API_URL,
@@ -71,7 +71,7 @@ class EzClient implements StathatClientInterface
 	 * @param  string 	$accountId
 	 * @return void
 	 */
-	public function countSync($stat_name, $count, $accountId = '')
+	public function countSync($stat_name, $count = 1, $accountId = '')
 	{
 		$accountId = $this->getEmail($accountId);
 
