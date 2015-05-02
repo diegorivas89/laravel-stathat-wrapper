@@ -27,9 +27,13 @@ Once this operation completes, add the service provider. Open `app/config/app.ph
 
 Also you can add the facade accesor to the end of `aliases` key in `app/config/app.php`
 
-    'Stathat' => 'Stathat\Facades\Stathat'
+    'Stathat' => 'Stathat\Facades\StathatEz'
 
-The final step is publish the config file. for this run
+or if you want to use the classic api
+
+	'Stathat' => 'Stathat\Facades\StathatClassic'
+
+The final step is publish the config file. For this, run
 
     php artisan config:publish
 
@@ -39,10 +43,12 @@ In the published file you must set your credentials, this is the `user_key` and 
 
 ### Usage
 
-	Stathat::ezCount('page_views', 1);
+	Stathat::count('page_views'); // default value is 1
+	Stathat::count('page_views', 2);
+	Stathat::value('revenue', 17);
 
 or if you have to have to use more than one account of stathat, you could do:
 
-	Stathat::ezCount('page_views', 1); // default account from config
-	Stathat::ezCount('page_views', 1, 'first.account@email.com');
-	Stathat::ezCount('page_views', 1, 'second.account@email.com');
+	Stathat::count('page_views', 1); // default account from config
+	Stathat::count('page_views', 1, 'first.account@email.com');
+	Stathat::count('page_views', 1, 'second.account@email.com');
