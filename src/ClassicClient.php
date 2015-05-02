@@ -1,59 +1,108 @@
 <?php
 namespace Stathat;
-/**
-* 
-*/
-class ClassicClient extends Client
-{
 
-	public function __construct($userKey)
+/**
+* Classic Stathat Client
+*/
+class ClassicClient implements StathatClientInterface
+{
+	const COUNT_API_URL = 'http://api.stathat.com/c';
+	const VALUE_API_URL = 'http://api.stathat.com/v';
+
+	protected $userKey;
+	protected $httpClient;
+
+	public function __construct($userKey, $httpClient)
 	{
-		parent::__construct();
 		$this->userKey = $userKey;
+		$this->httpClient = $httpClient;
 	}
 
-	public function count($stat_key, $count, $user_key = '')
+	/**
+	 * Make a count against a stat asynchronously
+	 * 
+	 * @param  string 	$stat_name
+	 * @param  int 		$count
+	 * @param  string 	$accountId
+	 * @return void
+	 */
+	public function count($stat_name, $count, $accountId = '')
 	{
-		return $this->doAsyncPostRequest(
+		return $this->httpClient->doAsyncPostRequest(
 			self::COUNT_API_URL,
 			array(
-				'key' 	=> $stat_key,
-				'ukey' 	=> $this->getUserKey($user_key),
+				'key' 	=> $stat_name,
+				'ukey' 	=> $this->getUserKey($accountId),
 				'count' => $count
 			)
 		);
 	}
 
-	public function value($stat_key, $value, $user_key = '')
+	/**
+	 * Log a value against a stat asynchronously
+	 *
+	 * @param  string 	$stat_name
+	 * @param  int 		$value
+	 * @param  string 	$accountId
+	 * @return void
+	 */
+	public function value($stat_name, $value, $accountId = '')
 	{
-		$this->doAsyncPostRequest(
+		$this->httpClient->doAsyncPostRequest(
 			self::VALUE_API_URL,
 			array(
-				'key' => $stat_key,
-				'ukey' => $this->getUserKey($user_key),
+				'key' => $stat_name,
+				'ukey' => $this->getUserKey($accountId),
 				'value' => $value
 			)
 		);
 	}
 
-	public function countSync($stat_key, $count, $user_key = '')
+	/**
+	 * Make a count against a stat
+	 *
+	 * @param  string 	$stat_name
+	 * @param  int 		$value
+	 * @param  string 	$accountId
+	 * @return void
+	 */
+	public function countSync($stat_name, $count, $accountId = '')
 	{
-		$user_key = $this->getUserKey($user_key);
+		$accountId = $this->getUserKey($accountId);
 
-		return $this->doPostRequest(
+		return $this->httpClient->doPostRequest(
 			self::COUNT_API_URL,
-			"key=$stat_key&ukey=$user_key&count=$count"
+			"key=$stat_name&ukey=$accountId&count=$count"
 		);
 	}
 
-	public function valueSync($stat_key, $value, $user_key = '')
+	/**
+	 * Log a value against a stat
+	 *
+	 * @param  string 	$stat_name
+	 * @param  int 		$value
+	 * @param  string 	$accountId
+	 * @return void
+	 */
+	public function valueSync($stat_name, $value, $accountId = '')
 	{
-		$user_key = $this->getUserKey($user_key);
+		$accountId = $this->getUserKey($accountId);
 
-		return $this->doPostRequest(
+		return $this->httpClient->doPostRequest(
 			self::VALUE_API_URL,
-			"key=$stat_key&ukey=$user_key&value=$value"
+			"key=$stat_name&ukey=$accountId&value=$value"
 		);
+	}
+
+	/**
+	 * Return account's user key
+	 *
+	 * @param string $default
+	 * @return string
+	 */
+	protected function getUserKey($default = null)
+	{
+		return ($default) ? $default : $this->userKey;
 	}
 }
 

@@ -4,23 +4,26 @@ namespace Stathat;
 use Illuminate\Support\Facades\Config;
 
 /**
-* 
+* Http client
 */
-class Client
+class HttpClient
 {
-	const EZ_API_URL 	= 'http://api.stathat.com/ez';
-	const COUNT_API_URL = 'http://api.stathat.com/c';
-	const VALUE_API_URL = 'http://api.stathat.com/v';
 
-	protected $email;
-	protected $userKey;
-
+	/**
+	 * Class constructor
+	 */
 	public function __construct()
 	{
-		$this->email = null;
-		$this->userKey = null;
 	}
 
+	/**
+	 * Perform post request
+	 *
+	 * @param  string 	$url
+	 * @param  array 	$data
+	 * @param  array 	$optional_headers
+	 * @return string
+	 */
 	protected function doPostRequest($url, $data, $optional_headers = null)
 	{
 		$params = array('http' => array(
@@ -42,6 +45,13 @@ class Client
 		return $response;
 	}
 
+	/**
+	 * Perform an asynchronous post request
+	 * 
+	 * @param  string 	$url
+	 * @param  array 	$params
+	 * @return void
+	 */
 	protected function doAsyncPostRequest($url, $params)
 	{
 		foreach ($params as $key => &$val) {
@@ -65,16 +75,6 @@ class Client
 
 		fwrite($fp, $out);
 		fclose($fp);
-	}
-
-	protected function getEmail($default = null)
-	{
-		return ($default) ? $default : $this->email;
-	}
-
-	protected function getUserKey($default = null)
-	{
-		return ($default) ? $default : $this->userKey;
 	}
 }
 

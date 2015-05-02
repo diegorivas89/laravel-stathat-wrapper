@@ -32,14 +32,16 @@ class StathatServiceProvider extends ServiceProvider {
 		$this->app['stathat-ez'] = $this->app->share(function($app)
 		{
 			return new \Stathat\EzClient(
-				$app['config']->get('stathat::stathat.email')
+				$app['config']->get('stathat::stathat.email'),
+				new \Stathat\HttpClient()
 			);
 		});
 
 		$this->app['stathat-classic'] = $this->app->share(function($app)
 		{
 			return new \Stathat\ClassicClient(
-				$app['config']->get('stathat::stathat.user_key')
+				$app['config']->get('stathat::stathat.user_key'),
+				new \Stathat\HttpClient()
 			);
 		});
 	}
